@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Repeat Directive</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>DevLink 2014 - AngularJS Directives Fundamentals <small>Source Code</small></h1>
+            <p>Dave F. Baskin - MIT License</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h4>Repeat Directive - Repeat States</h4>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <a class="btn" href="./">Home</a>
+
+                            <a class="btn" href="repeat-directive-object-data.html"><span class="glyphicon glyphicon-arrow-left"></span></a>
+
+                            <a class="btn" href="repeat-directive-with-filter.html"><span class="glyphicon glyphicon-arrow-right"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="repeatDirectiveCtrl as ctrl">
+            <div class="col-md-offset-1 col-md-10">
+                <style>
+                    .true {
+                        font-weight: bold;
+                        color: blue;
+                    }
+                    .false {
+                        color: green;
+                    }
+                </style>
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>$index</th>
+                        <th>$first</th>
+                        <th>$middle</th>
+                        <th>$last</th>
+                        <th>$even</th>
+                        <th>$odd</th>
+                    </tr>
+                    <tr ng-repeat="v in ctrl.data.items">
+                        <td>{{v.id}}</td>
+                        <td>{{v.name}}</td>
+                        <td>{{$index}}</td>
+                        <td class="{{$first}}">{{$first}}</td>
+                        <td class="{{$middle}}">{{$middle}}</td>
+                        <td class="{{$last}}">{{$last}}</td>
+                        <td class="{{$even}}">{{$even}}</td>
+                        <td class="{{$odd}}">{{$odd}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-sanitize.min.js"></script>
+    <script>
+        (function() {
+            var myApp = angular.module('myApp', []);
+            var RepeatDirectiveCtrl = function() {
+                this.data = {
+                    items: [{
+                        id: 1,
+                        name: "One",
+                        type: "Red"
+                    }, {
+                        id: 2,
+                        name: "Two",
+                        type: "Green"
+                    }, {
+                        id: 3,
+                        name: "Three",
+                        type: "Red"
+                    }, {
+                        id: 4,
+                        name: "Four",
+                        type: "Red"
+                    }, {
+                        id: 5,
+                        name: "Five",
+                        type: "Green"
+                    }]
+                };
+            };
+            myApp.controller('repeatDirectiveCtrl', [RepeatDirectiveCtrl]);
+        })();
+    </script>
+</body>
+
+</html>

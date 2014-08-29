@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Popover Directive</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>DevLink 2014 - AngularJS Directives Fundamentals <small>Source Code</small></h1>
+            <p>Dave F. Baskin - MIT License</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h4>Custom Popover Directive - Popover Step Two</h4>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <a class="btn" href="./">Home</a>
+
+                            <a class="btn" href="custom-popover-directive-popover-step-one.html"><span class="glyphicon glyphicon-arrow-left"></span></a>
+
+                            <a class="btn" href="custom-popover-directive-popover-step-three.html"><span class="glyphicon glyphicon-arrow-right"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="customExampleCtrl as ctrl">
+            <div class="col-md-offset-1 col-md-10">
+                <ul>
+                    <li>
+                        Item One
+                        <my-popover-one>
+                            Here's Information about <strong>item one</strong>...
+                        </my-popover-one>
+                    </li>
+                    <li>
+                        Item Two
+                        <my-popover-one>
+                            Details about <strong>item two</strong>...
+                        </my-popover-one>
+                    </li>
+                    <li>
+                        Item Three
+                        <my-popover-one>
+                            <strong>Item Three</strong> additional information... And {{ctrl.name}}
+                        </my-popover-one>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-sanitize.min.js"></script>
+    <script>
+        (function() {
+            var myApp = angular.module('myApp', []);
+            myApp.controller('customExampleCtrl', [CustomExampleController]);
+
+            function CustomExampleController() {
+                this.name = "Dave Baskin";
+            }
+            myApp.directive('myPopoverOne', [MyPopoverOne]);
+
+            function MyPopoverOne() {
+                return {
+                    restrict: 'E',
+                    template: "<span class='glyphicon glyphicon-folder-open'></span>",
+                    link: function(scope, element, attrs) {
+                        element.popover({
+                            trigger: 'hover',
+                            content: 'Hello!'
+                        });
+                    }
+                };
+            }
+        })();
+    </script>
+</body>
+
+</html>

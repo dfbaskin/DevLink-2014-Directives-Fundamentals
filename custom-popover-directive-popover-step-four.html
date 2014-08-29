@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Custom Popover Directive</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>DevLink 2014 - AngularJS Directives Fundamentals <small>Source Code</small></h1>
+            <p>Dave F. Baskin - MIT License</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h4>Custom Popover Directive - Popover Step Four</h4>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <a class="btn" href="./">Home</a>
+
+                            <a class="btn" href="custom-popover-directive-popover-step-three.html"><span class="glyphicon glyphicon-arrow-left"></span></a>
+
+                            <a class="btn" href="custom-popover-directive-popover-step-five.html"><span class="glyphicon glyphicon-arrow-right"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="customExampleCtrl as ctrl">
+            <div class="col-md-offset-1 col-md-10">
+                <ul>
+                    <li>
+                        Item One
+                        <my-popover-three>
+                            Here's Information about <strong>item one</strong>...
+                        </my-popover-three>
+                    </li>
+                    <li>
+                        Item Two
+                        <my-popover-three>
+                            Details about <strong>item two</strong>...
+                        </my-popover-three>
+                    </li>
+                    <li>
+                        Item Three
+                        <my-popover-three>
+                            <strong>Item Three</strong> additional information... And {{ctrl.name}}
+                        </my-popover-three>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-sanitize.min.js"></script>
+    <script>
+        (function() {
+            var myApp = angular.module('myApp', []);
+            myApp.controller('customExampleCtrl', [CustomExampleController]);
+
+            function CustomExampleController() {
+                this.name = "Dave Baskin";
+            }
+            myApp.directive('myPopoverThree', ['$compile', MyPopoverThree]);
+
+            function MyPopoverThree($compile) {
+                return {
+                    restrict: 'E',
+                    link: function(scope, element, attrs) {
+                        var originalHtml = element.html();
+                        element.html("<span class='glyphicon glyphicon-folder-open'></span>");
+                        element.popover({
+                            trigger: 'hover',
+                            html: true,
+                            content: originalHtml
+                        });
+                        element.on('shown.bs.popover', function() {
+                            scope.$apply(function() {
+                                var popover = element.parent().find(".popover");
+                                var compileFxn = $compile(popover[0]);
+                                compileFxn(element.scope());
+                            });
+                        });
+                    }
+                };
+            }
+        })();
+    </script>
+</body>
+
+</html>

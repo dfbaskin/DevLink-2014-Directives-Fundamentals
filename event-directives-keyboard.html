@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event Directives</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>DevLink 2014 - AngularJS Directives Fundamentals <small>Source Code</small></h1>
+            <p>Dave F. Baskin - MIT License</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h4>Event Directives - Keyboard Events</h4>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <a class="btn" href="./">Home</a>
+
+                            <a class="btn" href="event-directives-mouse.html"><span class="glyphicon glyphicon-arrow-left"></span></a>
+
+                            <a class="btn" href="event-directives-ng-change.html"><span class="glyphicon glyphicon-arrow-right"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="eventDirectivesCtrl as ctrl">
+            <div class="col-md-offset-1 col-md-10">
+                <div ng-keydown="ctrl.onKey($event)" ng-keypress="ctrl.onKey($event)" ng-keyup="ctrl.onKey($event)">
+                    <label>Keys:</label>
+                    <input type="text" name="keysInput">
+                </div>
+                <div ng-repeat="msg in ctrl.messages">
+                    [{{msg.id}}] {{msg.text}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-sanitize.min.js"></script>
+    <script>
+        (function() {
+            var myApp = angular.module('myApp', []);
+            var EventDirectivesCtrl = function() {
+                var ctrl = this;
+                var msgNum = 0;
+                var addMsg = function(msg) {
+                    ctrl.messages.unshift({
+                        id: msgNum += 1,
+                        text: msg
+                    });
+                    ctrl.messages = ctrl.messages.slice(0, 10);
+                };
+                ctrl.messages = [];
+                ctrl.onKey = function(evt) {
+                    addMsg([
+                        evt.type,
+                        'keyCode:',
+                        evt.keyCode,
+                        evt.shiftKey ? "[shift]" : "",
+                        evt.altKey ? "[alt]" : "",
+                        evt.ctrlKey ? "[ctrl]" : ""
+                    ].join(' '));
+                };
+            };
+            myApp.controller('eventDirectivesCtrl', [EventDirectivesCtrl]);
+        })();
+    </script>
+</body>
+
+</html>
